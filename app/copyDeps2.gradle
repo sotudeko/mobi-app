@@ -1,0 +1,14 @@
+apply plugin: 'com.android.application'
+
+android.applicationVariants.all { variant ->
+    task "listDependencies${variant.name.capitalize()}"() {
+        outputs.upToDateWhen { false }
+        doLast {
+            println "Depdencies for ${variant.name.capitalize()}\n"
+            configurations.getByName("${variant.name}RuntimeClasspath").getResolvedConfiguration().getFirstLevelModuleDependencies().each {
+                println "${it.moduleGroup}:${it.moduleName} -> ${it.moduleVersion}"
+            }
+        }
+    }
+}
+
