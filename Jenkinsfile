@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        DEPENDENCIES = "${WORKSPACE}/app/build/dependencies/debug"
+        DEPENDENCIES = "./app/build/dependencies/debug"
         IQ_SCAN_URL = ""
     }
     
@@ -17,7 +17,14 @@ pipeline {
         stage('Nexus IQ Scan'){
 			steps {
 				script {
-            	    nexusPolicyEvaluation failBuildOnNetworkError: true, iqApplication: selectedApplication('mobi-app-ci'), iqScanPatterns: [[scanPattern: '${DEPENDENCIES}']], iqStage: 'build', jobCredentialsId: 'admin'
+					dir("${DEPENDENCIES}") {
+					    nexusPolicyEvaluation enableDebugLogging: true, 
+								  failBuildOnNetworkError: true, 
+								  iqApplication: selectedApplication('mobi-app-ci'), 
+								  iqScanPatterns: [[scanPattern: '*']], 
+								  iqStage: 'build', 
+								  jobCredentialsId: 'admin'
+					}
 				}
 			}
 		}
