@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'gradle clean copyDependenciesDebug assembleDebug'
+                sh 'gradlew clean copyDependenciesDebug assembleDebug'
             }
         }
 

@@ -23,7 +23,5 @@
 hs_err_pid*
 
 dependencies
-.gradle/*
-*.lock
 
 
