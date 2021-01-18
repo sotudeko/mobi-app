@@ -1,16 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'org.sonatype.gradle.plugins.scan' version '2.0.1'
-}
-
-nexusIQScan {
-  username = 'admin'
-  password = 'admin123'
-  serverUrl = 'http://localhost:8070'
-  applicationId = 'mobi-app'
-  stage = 'build'
-  allConfigurations = true
 }
 
 android {
