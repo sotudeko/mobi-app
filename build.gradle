@@ -9,10 +9,27 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.sonatype.gradle.plugins:scan-gradle-plugin:2.0.1"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+}
+
+apply plugin: "org.sonatype.gradle.plugins.scan"
+
+/* Optional: default cache directory varies depending of the OS (user data), this can be done to set a specific path which could be useful for CI
+ossIndexAudit {
+  cacheDirectory = "${System.getProperty('user.home')}/.ossIndexCache"
+} */
+
+nexusIQScan {
+  username = 'admin' // project['yourUsernameProperty'] or System.getenv('yourUsernameProperty') can be used to get sensitive data from project properties or environment variables
+  password = 'admin123' // project['yourPasswordProperty'] or System.getenv('yourPasswordProperty') can be used to get sensitive data from project properties or environment variables
+  serverUrl = 'http://localhost:8070'
+  applicationId = 'mobi-app'
+  stage = 'build'
+  allConfigurations = true
 }
 
 allprojects {
